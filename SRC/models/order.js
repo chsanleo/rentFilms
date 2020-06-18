@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     MovieId: DataTypes.STRING,
     UserId: DataTypes.INTEGER,
     returnDate: DataTypes.DATE
-  }, {});
+  }, {
+    paranoid: true
+  });
   Order.associate = function(models) {
     // associations can be defined here
   };
