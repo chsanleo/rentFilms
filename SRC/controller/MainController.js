@@ -1,15 +1,15 @@
 //const { User,Token } = require('../models');
 
 const MainController = {
-    async login = (req, res) => {
+    async login (req, res) {
 
     },
 
-    async signIn = (req, res) => {
+    async signIn (req, res) {
 
     },
 
-    async signOut = (req, res) => {
+    async signOut (req, res) {
 
     }
 }

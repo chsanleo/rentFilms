@@ -1,19 +1,19 @@
 //const { User } = require('../models');
 
 const UserController = {
-    async addUser = (req, res) => {
+    async addUser (req, res) {
 
     },
 
-    async getUser = (req, res) => {
+    async getUser (req, res) {
 
     },
 
-    async updateUser = (req, res) => {
+    async updateUser (req, res) {
 
     },
 
-    async deleteUser = (req, res) => {
+    async deleteUser (req, res) {
 
     }
 }
