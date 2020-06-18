@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Order);
+    User.belongsTo(models.Role);
   };
   return User;
 };

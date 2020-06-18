@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
   Role.associate = function(models) {
-    // associations can be defined here
+    Role.hasMany(models.User);
   };
   return Role;
 };
