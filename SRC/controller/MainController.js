@@ -32,7 +32,6 @@ const MainController = {
         try {
             req.body.password = await bcrypt.hash(req.body.password, 9);
             req.body.RoleId = 2;
-            console.log(req.body);
             await User.create(req.body);
             res.status(201).send({ message: "Created" });
 
