@@ -3,6 +3,6 @@ const MainController = require('../controller/MainController');
 
 router.post('/login', MainController.login);
 router.post('/signin', MainController.signIn);
-router.get('/signout', MainController.signOut);
+router.post('/logout', MainController.logout);
 
 module.exports = router;
