@@ -9,9 +9,21 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     paranoid: true
   });
+  User.prototype.toJSON = function(){
+    const user = this.get();
+    delete user.password;
+    delete user.address;
+    delete user.createdAt;
+    delete user.updatedAt;
+    delete user.deletedAt;
+    delete user.RoleId;
+    return user;
+  }
+
   User.associate = function(models) {
     User.hasMany(models.Order);
     User.belongsTo(models.Role);
+    User.hasMany(models.Token);
   };
   return User;
 };

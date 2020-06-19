@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
   Token.associate = function(models) {
-    // associations can be defined here
+    Token.belongsTo(models.User);
+
   };
   return Token;
 };
