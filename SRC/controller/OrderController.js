@@ -52,7 +52,18 @@ const OrderController = {
     },
 
     async deleteOrder(req, res) {
-
+        try {
+            const id = req.params.id;
+            console.log(req.params.id);
+            await Order.destroy({
+                where:{
+                    id:id
+                },
+            })
+            res.send({message:`Deleted successfull Order ${req.body.id}`})
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem" });
+        }
     }
 }
 module.exports = OrderController;
