@@ -25,6 +25,16 @@ const OrderController = {
 
         }
     },
+    async getAllOrder(req, res) {
+        try {
+            let orders = await Order.findAll({ });
+            res.status(200).send(orders);
+
+        } catch (error) { 
+            res.status(500).send({ message: "There was a problem" });
+
+        }
+    },
 
     async updateOrder(req, res) {
 
