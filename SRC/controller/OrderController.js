@@ -25,6 +25,7 @@ const OrderController = {
 
         }
     },
+
     async getAllOrder(req, res) {
         try {
             let orders = await Order.findAll({ });
@@ -37,7 +38,17 @@ const OrderController = {
     },
 
     async updateOrder(req, res) {
+        try {
+            await Order.update(req.body,{
+                where:{
+                    id:req.body.id
+                }
+            });
+            res.send({message:`Updated correctly Order ${req.body.id}`});
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem" });
 
+        }
     },
 
     async deleteOrder(req, res) {
