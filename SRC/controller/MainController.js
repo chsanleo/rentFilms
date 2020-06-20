@@ -18,7 +18,7 @@ const MainController = {
             }
 
             const token = jwt.sign({ id: user.id }, properties.SECRETWORD, { expiresIn: '48h' });
-            await Token.create({ token, UserId: user.id, revoked: false });
+            await Token.create({ token, UserId: user.id, revoke: false });
             res.send({
                 user,
                 token
