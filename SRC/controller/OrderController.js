@@ -53,11 +53,9 @@ const OrderController = {
 
     async deleteOrder(req, res) {
         try {
-            const id = req.params.id;
-            console.log(req.params.id);
             await Order.destroy({
                 where:{
-                    id:id
+                    id:req.params.id
                 },
             })
             res.send({message:`Deleted successfull Order ${req.body.id}`})

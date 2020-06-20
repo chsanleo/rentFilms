@@ -2,18 +2,18 @@ const jwt = require('jsonwebtoken');
 const properties = require ('../config/properties');
 const { User, Token } = require('../models');
 
-const auth = async (res, req, next) => {
+const auth = async (req, res, next) => {
     try {
-        const token = req.header.authorization;
+        const token = req.headers.authorization;
         const payload = jwt.verify(token, properties.SECRETWORD);
         const user = await User.findByPk(payload.id);
         const tokenFound = await Token.findOne({
             where: {
                 token: token,
                 UserId: payload.id,
-                revoked: false
+                revoke: false
             }
-        });
+        }); 
         if (!user || !tokenFound) {
             return res.status(401).send({
                 message: 'You are not authorized.'
@@ -22,6 +22,7 @@ const auth = async (res, req, next) => {
         req.user = user;
         next();
     } catch (error) {
+        console.log(error);
         return res.status(401).send({message:'Try again later.'});
     }
 }
