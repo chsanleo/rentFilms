@@ -5,7 +5,7 @@ const { User, Token } = require('../models');
 const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization;
-        const payload = jwt.verify(token, properties.SECRETWORD);
+        const payload = jwt.verify(token, properties.properties.token_SECRETWORD);
         const user = await User.findByPk(payload.id);
         const tokenFound = await Token.findOne({
             where: {

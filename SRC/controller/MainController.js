@@ -1,6 +1,8 @@
 const { User, Token } = require('../models');
+
 const properties = require('../config/properties');
 
+const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -12,12 +14,12 @@ const MainController = {
                     email: req.body.email
                 }
             });
-            console.log(properties.SECRETWORD);
-            if (!await bcrypt.compare(req.body.password, user.password)){
+            console.log(properties.token_SECRETWORD);
+            if (!await bcrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: "Wrong credentials" })
             }
 
-            const token = jwt.sign({ id: user.id }, properties.SECRETWORD, { expiresIn: '48h' });
+            const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: '48h' });
             await Token.create({ token, UserId: user.id, revoke: false });
             res.send({
                 user,
@@ -49,6 +51,15 @@ const MainController = {
             });
             res.send({ message: 'Correct logOut' });
 
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem." });
+        }
+    },
+
+    async getTredingMovies(req, res) {
+        try {
+            let response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}&`);
+            res.send(response.data);
         } catch (error) {
             res.status(500).send({ message: "There was a problem." });
         }
