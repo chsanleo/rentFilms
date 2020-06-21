@@ -43,9 +43,9 @@ const MainController = {
 
     async logout(req, res) {
         try {
-            await Token.update({ revoked: true }, {
+            await Token.update({ revoke: true }, {
                 where: {
-                    UserId: req.body.UserId
+                    UserId: req.user.id
                 }
             });
             res.send({ message: 'Correct logOut' });
