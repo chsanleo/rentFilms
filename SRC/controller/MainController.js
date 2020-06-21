@@ -18,15 +18,15 @@ const MainController = {
                 throw new Error({ message: "Wrong credentials" })
             }
             await Token.update({
-                revoke : true
-            },{
-                where : {
-                    UserId : user.id,
-                    revoke : false
+                revoke: true
+            }, {
+                where: {
+                    UserId: user.id,
+                    revoke: false
                 }
             });
 
-            const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: '48h' });
+            const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: properties.token_EXPIRES });
             await Token.create({ token, UserId: user.id, revoke: false });
             res.send({
                 user,
@@ -39,18 +39,18 @@ const MainController = {
 
     async signIn(req, res) {
         try {
-                let userDB = await User.findOne({
-                    where: {
-                        email: req.body.email
-                    }
-                });
-                if (!userDB) {
-                    req.body.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
-                    req.body.RoleId = 2;
-                    await User.create(req.body);
-                    res.status(201).send({ message: "Created" });
+            let userDB = await User.findOne({
+                where: {
+                    email: req.body.email
                 }
-                
+            });
+            if (!userDB) {
+                req.body.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
+                req.body.RoleId = 2;
+                await User.create(req.body);
+                res.status(201).send({ message: "Created" });
+            }
+
             res.status(500).send({ message: "This email already exist. Did u forget ur password?" });
         } catch (error) {
             res.status(500).send({ message: "There was a problem." });
