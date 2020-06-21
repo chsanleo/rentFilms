@@ -17,6 +17,14 @@ const MainController = {
             if (!await bcrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: "Wrong credentials" })
             }
+            await Token.update({
+                revoke : true
+            },{
+                where : {
+                    UserId : user.id,
+                    revoke : false
+                }
+            });
 
             const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: '48h' });
             await Token.create({ token, UserId: user.id, revoke: false });
