@@ -31,11 +31,19 @@ const MainController = {
 
     async signIn(req, res) {
         try {
-            req.body.password = await bcrypt.hash(req.body.password, 9);
-            req.body.RoleId = 2;
-            await User.create(req.body);
-            res.status(201).send({ message: "Created" });
-
+                let userDB = await User.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                });
+                if (!userDB) {
+                    req.body.password = await bcrypt.hash(req.body.password, 9);
+                    req.body.RoleId = 2;
+                    await User.create(req.body);
+                    res.status(201).send({ message: "Created" });
+                }
+                
+            res.status(500).send({ message: "This email already exist. Did u forget ur password?" });
         } catch (error) {
             res.status(500).send({ message: "There was a problem." });
         }
