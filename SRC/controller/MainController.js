@@ -37,7 +37,7 @@ const MainController = {
                     }
                 });
                 if (!userDB) {
-                    req.body.password = await bcrypt.hash(req.body.password, 9);
+                    req.body.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
                     req.body.RoleId = 2;
                     await User.create(req.body);
                     res.status(201).send({ message: "Created" });
