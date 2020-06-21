@@ -57,7 +57,11 @@ $ sequelize db:seed:all
 + Import data of actors and genders in Movies (MongoDB).
 
 **About the documentation**
-+ Finish the configuration of swagger in all the controllers.
++ Finish the configuration of swagger in:
+    - [x] Main
+    - [ ] Movies
+    - [ ] Orders
+    - [ ] Users
 
 **About features**
 + Implement search movie by gender.
