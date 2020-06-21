@@ -1,4 +1,5 @@
 const PROPERTIES={
+    server_PORT: 8080,
     token_SECRETWORD : 'sample',
     externAPI_KEY : 'sample',
     externAPI_LANGUAGE : 'es-ES',
