@@ -28,12 +28,12 @@ const MainController = {
 
             const token = jwt.sign({ id: user.id }, properties.token_SECRETWORD, { expiresIn: properties.token_EXPIRES });
             await Token.create({ token, UserId: user.id, revoke: false });
-            res.send({
+            res.status(200).send({
                 user,
                 token
             })
         } catch (error) {
-            return res.status(400).send({ message: "Wrong logIn" })
+            return res.status(400).send({ message: "Error, not correct data (email or password)" })
         }
     },
 
@@ -44,16 +44,17 @@ const MainController = {
                     email: req.body.email
                 }
             });
-            if (!userDB) {
-                req.body.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
-                req.body.RoleId = 2;
-                await User.create(req.body);
-                res.status(201).send({ message: "Created" });
+            if (userDB) {
+                res.status(400).send({ message: "This email already exist. Did u forget ur password?" });
             }
 
-            res.status(500).send({ message: "This email already exist. Did u forget ur password?" });
+            req.body.password = await bcrypt.hash(req.body.password, properties.PASSWORDSALT);
+            req.body.RoleId = 2;
+            await User.create(req.body);
+            res.status(201).send({ message: "Created" });
+
         } catch (error) {
-            res.status(500).send({ message: "There was a problem." });
+            res.status(500).send({ message: "An error has occur, please try again later." });
         }
     },
 
@@ -67,16 +68,16 @@ const MainController = {
             res.send({ message: 'Correct logOut' });
 
         } catch (error) {
-            res.status(500).send({ message: "There was a problem." });
+            res.status(500).send({ message: "An error has occur, please try again later" });
         }
     },
 
     async getTredingMovies(req, res) {
         try {
             let response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}&`);
-            res.send(response.data);
+            res.status(200).send(response.data);
         } catch (error) {
-            res.status(500).send({ message: "There was a problem." });
+            res.status(500).send({ message: "An error has occur, please try again later." });
         }
     },
 
@@ -86,11 +87,11 @@ const MainController = {
             console.log(properties.externAPI_LANGUAGE);
             let response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}`);
             console.log(response.data);
-            res.send(response.data);
+            res.status(200).send(response.data);
 
         } catch (error) {
             console.log(error);
-            res.status(500).send({ message: "There was a problem." });
+            res.status(500).send({ message: "An error has occur, please try again later." });
         }
     }
 }
