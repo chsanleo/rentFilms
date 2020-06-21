@@ -27,7 +27,7 @@ $ npm install
 $ sequelize db:migrate
 ```
 
-+ populate the database
++ populate the database with basic data
 
 ```
 $ sequelize db:seed:all
@@ -47,14 +47,17 @@ $ sequelize db:seed:all
 + Only storage Movies the user ask in detail for.
 + Combine SQL and MongoDB for management data.
 + File properties, you can personalize completely.
++ One exist one "Admin" and is the parent of all users, to add new "Admin" must update manually the DB.
 
 
 ### Roadmap 📋
 
 **About the back**
 + Solve problem with the storage more than 1 movie.
++ Import data of actors and genders in Movies (MongoDB).
 
-
+**About the documentation**
++ Finish the configuration of swagger in all the controllers.
 
 **About features**
 + Implement search movie by gender.
@@ -65,12 +68,12 @@ $ sequelize db:seed:all
 
 ## Test the application ⚙️
 
-Turn on the server
+Turn on the server.
 ```
 $ npm start
 ```
 
-You can use the swagger API to test each back feature
+You can use the swagger API to test each back feature (not finish yet >_<).
 ```
 localhost:3000/api-doc
 ```
@@ -78,26 +81,21 @@ localhost:3000/api-doc
 Or you can use Postman instead.
 
 
-use the browser of your choice and with the developer tools test. 
+Use the browser of your choice and with the developer tools test. 
 
 
 ![devtools](https://www.formacionprofesional.info/wp-content/uploads/2015/09/herramientas_desarrollo_iexplorer11.png)
 
 ## Used Tools 🛠️
 
+* [Axios](https://www.npmjs.com/package/axios) - HTTP client
+* [Bcryptjs](https://www.npmjs.com/package/bcryptjs) - Cyper 
+* [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Token
+* [Mongoose](https://www.npmjs.com/package/mongoose) - MongoDB ORM
+* [Mysql2](https://www.npmjs.com/package/mysql2) - MySQL client
+* [Sequelize](https://www.npmjs.com/package/sequelize) - ORM
 * [Swagger](https://www.npmjs.com/package/swagger-ui-express) - API docs
-* [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc) - API docs
-
-
-
-
-* [axios](https://www.npmjs.com/package/axios) - HTTP client
-* [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Cyper 
-* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Token
-* [mongoose](https://www.npmjs.com/package/mongoose) - MongoDB ORM
-* [mysql2](https://www.npmjs.com/package/mysql2) - MySQL client
-* [sequelize](https://www.npmjs.com/package/sequelize) - ORM
-
+* [Swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc) - API docs
 
 
 ## Author ✒️
