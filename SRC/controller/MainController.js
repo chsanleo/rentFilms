@@ -14,7 +14,6 @@ const MainController = {
                     email: req.body.email
                 }
             });
-            console.log(properties.token_SECRETWORD);
             if (!await bcrypt.compare(req.body.password, user.password)) {
                 throw new Error({ message: "Wrong credentials" })
             }
@@ -61,6 +60,20 @@ const MainController = {
             let response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}&`);
             res.send(response.data);
         } catch (error) {
+            res.status(500).send({ message: "There was a problem." });
+        }
+    },
+
+    async getGenders(req, res) {
+        try {
+            console.log(properties.externAPI_KEY);
+            console.log(properties.externAPI_LANGUAGE);
+            let response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}`);
+            console.log(response.data);
+            res.send(response.data);
+
+        } catch (error) {
+            console.log(error);
             res.status(500).send({ message: "There was a problem." });
         }
     }
