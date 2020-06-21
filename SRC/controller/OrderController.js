@@ -1,8 +1,19 @@
 const { Order } = require('../models');
+const properties = require('../config/properties');
 
 const OrderController = {
     async addOrder(req, res) {
         try {
+            let rented = Order.findAndCountAll({
+                where : {
+                    UserId : req.User.id,
+                    returnDate : null
+                }
+            });
+            if(rented.count > properties.LIMITMOVIESRENT){
+                res.status(500).send({message : "Already rented the limit of films"});
+            }
+
             await Order.create(req.body);
             res.status(201).send({ message: "Created order success." });
 
@@ -10,7 +21,6 @@ const OrderController = {
             res.status(500).send({ message: "There was a problem" });
         }
     },
-    //1 order por usuario
 
     async getOrder(req, res) {
         try {
