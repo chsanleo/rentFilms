@@ -94,8 +94,8 @@ Use the browser of your choice and with the developer tools test.
 * [Mongoose](https://www.npmjs.com/package/mongoose) - MongoDB ORM
 * [Mysql2](https://www.npmjs.com/package/mysql2) - MySQL client
 * [Sequelize](https://www.npmjs.com/package/sequelize) - ORM
-* [Swagger](https://www.npmjs.com/package/swagger-ui-express) - API docs
 * [Swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc) - API docs
+* [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express) - API docs
 
 
 ## Author ✒️
