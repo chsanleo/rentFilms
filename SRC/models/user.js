@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.toJSON = function(){
     const user = this.get();
     delete user.password;
-    delete user.address;
     delete user.createdAt;
     delete user.updatedAt;
     delete user.deletedAt;
