@@ -11,6 +11,20 @@ const UserController = {
         }
     },
 
+    async getUserById(req,res){
+        try {
+            let user = await User.findOne({
+                where: { 
+                    id: req.params.id
+                   },
+                });
+            res.status(200).send(user);
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem" });
+
+        }
+    },
+
     async updateUser(req, res) {
         try {
             await User.update(req.body, {
