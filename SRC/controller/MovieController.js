@@ -18,6 +18,19 @@ const MovieController = {
             res.status(500).send({ message: "There was a problem." });
         }
     },
+    async getSomeMovies(req,res)
+    {
+        try {
+            let moviesTitles;
+            for(let movie in req.movies)
+            {
+                moviesTitles.push(Movie.findOne(movie.id));
+            }
+            res.send(moviesTitles);
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem." });
+        }
+    },
     //error no guarda.
     async getTredingMovies(req, res) {
         try {
