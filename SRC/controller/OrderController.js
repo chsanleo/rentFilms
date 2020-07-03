@@ -1,5 +1,6 @@
 const { Order } = require('../models');
 const properties = require('../config/properties');
+const MovieController = require('../controller/MovieController');
 
 const OrderController = {
     async addOrder(req, res) {
@@ -43,6 +44,30 @@ const OrderController = {
             res.status(200).send(orders);
 
         } catch (error) { 
+            res.status(500).send({ message: "There was a problem" });
+
+        }
+    },
+
+    async getAllOrdersByUser(req,res){
+        try {
+            let orders = await Order.findAll({ 
+                where: {
+                    UserId: req.user.id,
+                }
+            });
+
+            let ordersReturn;
+            let title;
+            
+            for(let order of orders){
+                title = MovieController.getMovieById(order.MovieId);
+                ordersReturn.push( new OrderFilm (order.id, order.MovieId, title,order.createAt, order.returnDate));
+            }
+
+            res.status(200).send(ordersReturn);
+            
+        } catch (error) {
             res.status(500).send({ message: "There was a problem" });
 
         }
