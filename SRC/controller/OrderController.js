@@ -5,20 +5,25 @@ const MovieController = require('../controller/MovieController');
 const OrderController = {
     async addOrder(req, res) {
         try {
-            let rented = await Order.findAndCountAll({
+
+            let rented = await Order.findOne({
                 where: {
-                    UserId: req.body.userID,
+                    UserId: req.body.userId,
                     returnDate: null
                 }
             });
-            console.log("despues find all")
-            if (rented.count > properties.LIMITMOVIESRENT) {
+
+            if (rented) {
                 res.status(500).send({ message: "Already rented the limit of films" });
             }
-            console.log("intentamos Crear")
-            await Order.create(req.body);
-            res.status(201).send({ message: "Created order success." });
 
+            Order.create({
+                MovieId: req.body.movieId,
+                UserId: req.body.userId,
+                returnDate: req.body.returnDate
+            });
+
+            res.status(201).send({ message: "Created order success." });
         } catch (error) {
             res.status(500).send({ message: "There was a problem" });
         }
