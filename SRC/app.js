@@ -30,16 +30,12 @@ const specs = swaggerJsdoc(options);
 const swaggerUi = require('swagger-ui-express');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-
-
-
-
 app.use(express.json());
 app.use(cors);
 
 app.use('/main', mainRouter);
-app.use('/users', auth, usersRouter);
-app.use('/movies', auth, moviesRouter);
-app.use('/orders', auth, ordersRouter);
+app.use('/users',/* auth,*/ usersRouter);
+app.use('/movies',/* auth,*/ moviesRouter);
+app.use('/orders', /*auth, */ordersRouter);
 
 app.listen(properties.server_PORT, () => console.log('Server running on port: ' + properties.server_PORT));
