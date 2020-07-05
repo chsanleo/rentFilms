@@ -21,6 +21,13 @@ const MovieController = {
             res.status(500).send({ message: "There was a problem." });
         }
     },
+    async getTitleMovieById(id) {
+        try {
+            return await Movie.findById(id).select('title -_id');
+        } catch (error) {
+            res.status(500).send({ message: "There was a problem." });
+        }
+    },
     async getSomeMovies(req,res)
     {
         try {
