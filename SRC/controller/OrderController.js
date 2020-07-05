@@ -57,21 +57,26 @@ const OrderController = {
 
     async getAllOrdersByUser(req, res) {
         try {
+            console.log(req.params.id)
             let orders = await Order.findAll({
                 where: {
-                    UserId: req.user.id,
+                    UserId: req.params.id,
                 }
             });
-
-            let ordersReturn;
+            /*
+            let ordersReturn = [];
             let title;
 
             for (let order of orders) {
-                title = MovieController.getMovieById(order.MovieId);
-                ordersReturn.push(new OrderFilm(order.id, order.MovieId, title, order.createAt, order.returnDate));
+                title = await MovieController.getTitleMovieById(order.MovieId);
+                let order = new OrderFilm(order.id, order.MovieId, title.title, order.createAt, order.returnDate);
+console.log(order)
+                ordersReturn.push(order);
             }
-
             res.status(200).send(ordersReturn);
+            */
+console.log(orders)
+            res.status(200).send(orders);
 
         } catch (error) {
             res.status(500).send({ message: "There was a problem" });
