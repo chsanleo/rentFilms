@@ -11,8 +11,11 @@ const MovieController = {
             let response = await axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${properties.externAPI_KEY}&language=${properties.externAPI_LANGUAGE}`);
 
             response.data['idIMDB'] = response.data.id;
-            Movie.updateOne({ 'idIMDB': response.data.idIMDB }, response.data, { upsert: true });
-
+            await Movie.updateOne({ 'idIMDB': response.data.idIMDB }, response.data, { upsert: true });
+            
+            let movie = await Movie.findOne({idIMDB : response.data.id});
+            response.data['_id'] = movie._id;
+            
             res.send(response.data);
         } catch (error) {
             res.status(500).send({ message: "There was a problem." });
