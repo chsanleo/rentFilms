@@ -85,13 +85,16 @@ const MovieController = {
 
     async getMoviesByTitle(req, res) {
         try {
+            console.log(req.body.title)
             let title = '/' + req.body.title + '/';
-            let response = await Movie.findOne({
+            let response = await Movie.find({
                 $or: [
                     { 'title': title },
                     { 'original_title': title }
                 ]
             }).limit(20);
+            console.log(response);
+            res.send(response);
         } catch (error) {
             res.status(500).send({ message: "There was a problem." });
         }
